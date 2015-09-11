@@ -1,0 +1,42 @@
+// Generate keyframes
+.keyframes( @name; @arguments ) {
+	@-webkit-keyframes @name { @arguments(); }
+	@-moz-keyframes @name { @arguments(); }
+	@keyframes @name { @arguments(); }
+}
+
+.animation-keyframes(@arguments) {
+	-webkit-animation: @arguments;
+	-moz-animation: @arguments;
+	animation: @arguments;
+}
+
+// Enable CPU to render animation
+.enable-cpu() {
+	.transform(translate3d(0,0,0));
+
+	// Fix translate flickering bug on iPhone/iPad
+	.perspective(1000);
+	.backface-visibility(hidden);
+}
+
+.backface-visibility( @value: hidden ) {
+	-webkit-backface-visibility: hidden;
+   	backface-visibility: hidden;
+}
+
+.perspective(@value: 1000) {
+	-webkit-perspective: 	@value;
+	-moz-perspective: 	@value;
+	-ms-perspective: 	@value;
+	perspective: 		@value;
+}
+
+.transitions(...) {
+	@args: ~`"@{arguments}".replace(/[\[\]]/g, '')`;
+    -webkit-transition: @args;
+    -moz-transition: @args;
+    -o-transition: @args;
+    -ms-transition: @args;
+    transition: @args;
+}
